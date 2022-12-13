@@ -89,13 +89,10 @@ export class MoviesonlineComponent implements OnInit {
     return this.httpService.getGenres();
   }
 
-  searchMoviesTwo(name: any) {
+  searchMoviesTwo() {
     debugger;
-
-    let formName = document.getElementById("formName");
-    console.log(formName);
     let param: IMovieParam = {
-      name: formName.nodeValue,
+      name: this.formName,
       year: this.formYear
     }
     this.httpService.searchMovieTwo(param)

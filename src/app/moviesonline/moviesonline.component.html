@@ -18,14 +18,14 @@
     <label for="formName">
     Form Name
     </label>
-  <input id="formName" #varName [value]="formName">
+  <input id="formName" name="formName" [(ngModel)]="formName"  [value]="formName">
 
     <label for="formYear">
       Form Year
     </label>
     <input id="formYear"  [value]="formYear">
   </form>
-  <button type="button" class="add-button" (click)="searchMoviesTwo(varName);">
+  <button type="button" class="add-button" (click)="searchMoviesTwo();">
     get movie
   </button>
 </div>
