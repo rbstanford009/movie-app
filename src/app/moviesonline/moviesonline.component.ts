@@ -11,7 +11,7 @@ import {catchError, map, tap} from "rxjs/operators";
 import { Router } from '@angular/router';
 //import { DataService } from '../services/data.service';
 import { HttpClient } from '@angular/common/http'
-import {IMovieResults} from "../model/movie-results";
+import {IMovieParam, IMovieResults} from "../model/movie-results";
 
 @Component({
   selector: 'app-movies',
@@ -19,6 +19,11 @@ import {IMovieResults} from "../model/movie-results";
   styleUrls: ['./moviesonline.component.css']
 })
 export class MoviesonlineComponent implements OnInit {
+  formName: string = "";
+  formYear: string = "";
+  private log(s: string) {
+
+  }
 
     private moviesUrl = 'api/movies';  // URL to web api      // https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true
     public movieResults: IMovieResults[] = [];
@@ -84,9 +89,16 @@ export class MoviesonlineComponent implements OnInit {
     return this.httpService.getGenres();
   }
 
-  searchMoviesTwo(name: string) {
+  searchMoviesTwo(name: any) {
     debugger;
-    this.httpService.searchMovieTwo(name)
+
+    let formName = document.getElementById("formName");
+    console.log(formName);
+    let param: IMovieParam = {
+      name: formName.nodeValue,
+      year: this.formYear
+    }
+    this.httpService.searchMovieTwo(param)
   .subscribe(data => {
       this.movieResults = data.results;
       console.log(this.movieResults);
@@ -229,10 +241,8 @@ export class MoviesonlineComponent implements OnInit {
 
 
 
-  // @ts-ignore
-    private log(s: string) {
 
-  }
+
 }
 
 

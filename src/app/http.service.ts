@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import { Movie } from './model/movie';
 
 import { environment } from 'src/app/environments/environment';
-import {IApiMovieSearch} from "./model/movie-results";
+import {IApiMovieSearch, IMovieParam} from "./model/movie-results";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class HttpService {
 
     return this.httpClient.get<any>(url);
   }
-  searchMovieTwo(movieName: any){
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=${movieName}&page=1&include_adult=true`;
+  searchMovieTwo(movieParam: IMovieParam){
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=${movieParam.name}&page=1&include_adult=true`;
      return this.httpClient.get<IApiMovieSearch>(url);
   }
 

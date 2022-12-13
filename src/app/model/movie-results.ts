@@ -21,3 +21,8 @@ export interface IApiMovieSearch {
   total_pages: number;
   total_results: number;
 }
+
+export interface IMovieParam {
+  name: string
+  year: string;
+}

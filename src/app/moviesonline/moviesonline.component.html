@@ -1,7 +1,7 @@
 <h2>My Online Movies</h2>
 
 <div>
-  <label for="new-movie">Movie name Online: 12/13 2:47 </label>
+  <label for="new-movie">Movie name Online: 12/13 11:48</label>
   <input id="new-movie" #movieName />
 
 
@@ -14,8 +14,19 @@
 <!--  <button type="button" class="add-button" (click)="getGenres();movieName.value=''">-->
 <!--    search movie Value-->
 <!--  </button>-->
-  <button type="button" class="add-button" (click)="searchMoviesTwo('The');">
-    get movie THE
+  <form>
+    <label for="formName">
+    Form Name
+    </label>
+  <input id="formName" #varName [value]="formName">
+
+    <label for="formYear">
+      Form Year
+    </label>
+    <input id="formYear"  [value]="formYear">
+  </form>
+  <button type="button" class="add-button" (click)="searchMoviesTwo(varName);">
+    get movie
   </button>
 </div>
 
