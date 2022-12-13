@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HttpService } from '../http.service';
-//import { Movie } from '../movie';
-import { MovieService } from '../movie.service';
-//import {HttpClient, HttpContext, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {environment} from "../environments/environment";
 import {Movie} from "./movie";
 import {catchError, map, tap} from "rxjs/operators";
 import { Router } from '@angular/router';
-//import { DataService } from '../services/data.service';
 import { HttpClient } from '@angular/common/http'
 import {IMovieParam, IMovieResults} from "../model/movie-results";
 
@@ -25,13 +20,8 @@ export class MoviesonlineComponent implements OnInit {
 
   }
 
-    private moviesUrl = 'api/movies';  // URL to web api      // https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true
-    public movieResults: IMovieResults[] = [];
+     public movieResults: IMovieResults[] = [];
     public movies: Movie[] = [];
-    movies$= new Observable<Movie[]>;
-
-    public movieName ='';
- //   private movieName: string;
 
   constructor(
 
@@ -39,55 +29,14 @@ export class MoviesonlineComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router
   ) {
-      const url = 'https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true';
-      this.httpClient.get(url).subscribe(console.log);
+
 
   }
- // constructor(private httpService: HttpService) { }
 
 
   ngOnInit(): void {
-    this.searchMovies('THE');
- //   this.getMovies();
- //   this.getMoviesMany();
-/*
-
-*/
   }
 
-    getMovies():  Movie[] | null {
-        console.log(this.movies);
-
-        this.httpService.searchMovie("Beast")
-            .pipe(
-                map(data => Object.keys(data).map(key => data[key]))
-            )
-            .subscribe((movies: Movie[]) => this.movies = movies);
-
-        console.log(this.movies);
-
-        console.log('----------PRE-------------');
-        const url = 'https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true';
-        this.httpClient.get(url).subscribe(console.log);
-        let simpleTest = this.httpClient.get(url); //.subscribe(console.log);
-      console.log(this.movies);
-
-      console.log(this.movies.length);
-      if(this.movies.length > 0) {
-        console.log('----------Full-------------');
-        return this.movies;
-      }
-
-      console.log('----------POST-------------');
-      return null;
-
-    }
-
-
-  getGenres(): Observable<any> {
-
-    return this.httpService.getGenres();
-  }
 
   searchMoviesTwo() {
     debugger;
@@ -102,40 +51,6 @@ export class MoviesonlineComponent implements OnInit {
     } );
   }
 
-  searchMovies(name: string): Movie[] | null {
-
-
-
-    //
-    console.log(this.movies);
-
-    this.httpService.searchMovie(name)
-      .pipe(
-        map(data => Object.keys(data).map(key => data[key]))
-      )
-      .subscribe((movies: Movie[]) => this.movies = movies);
-
-    console.log(this.movies);
-
-    console.log('----------PRE-------------');
-    const url = 'https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true';
-    this.httpClient.get(url).subscribe(console.log);
-    let simpleTest = this.httpClient.get(url); //.subscribe(console.log);
-    console.log(this.movies);
-
-    console.log(this.movies.length);
-    if(this.movies.length > 0) {
-      console.log('----------Full-------------');
-      return this.movies;
-    } else {
-      return null;
-    }
-
-    console.log('----------POST-------------');
-
-    //
-
-  }
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 
@@ -149,93 +64,6 @@ export class MoviesonlineComponent implements OnInit {
             return of(result as T);
         };
     }
-    // get<T>(url: string, options?: {
-    //     headers?: HttpHeaders | {
-    //         [header: string]: string | string[];
-    //     };
-    //     context?: HttpContext;
-    //     observe?: 'body';
-    //     params?: HttpParams | {
-    //         [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
-    //     };
-    //     reportProgress?: boolean;
-    //     responseType?: 'json';
-    //     withCredentials?: boolean;
-    // }): Observable<T>;
-
-  // searchMovies(term: string): Observable<Movie[]> {
-  //   Movie [] x = new Movie();
-  //   if (!term.trim()) {
-  //     // if not search term, return empty movie array.
-  //     return of([]);
-  //   }
-  //   return this.http.get<Movie[]>(url)
-  //       .pipe(
-  //           map(movies => movies[0]); // returns a {0|1} element array
-  //
-  //   return this.httpService..get<Movie[]>(`${this.moviesUrl}/?name=${term}`).pipe(
-  //       tap(x => x.length ?
-  //           this.log(`found movies matching "${term}"`) :
-  //           this.log(`no movies matching "${term}"`)),
-  //       catchError(this.handleError<Movie[]>('searchMovies', []))
-  //   );
-  // }
-  //
-  /*
-
-  searchMovies(term: string): Observable<Movie[]> {
-    if (!term.trim()) {
-      // if not search term, return empty movie array.
-      return of([]);
-    }
-    return this.http.get<Movie[]>(`${this.moviesUrl}/?name=${term}`).pipe(
-      tap(x => x.length ?
-         this.log(`found movies matching "${term}"`) :
-         this.log(`no movies matching "${term}"`)),
-      catchError(this.handleError<Movie[]>('searchMovies', []))
-    );
-  }
-
-
-  constructor(private httpClient: HttpClient) { }
-
-  getTrending(): Observable<any> {
-    const url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${environment.api_key}`;
-
-    return this.httpClient.get<any>(url);
-  }
-
-  searchMovie(movieName: any): Observable<any> {
-  // https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${environment.api_key}&language=en-US&query=${movieName}&page=1&include_adult=true`;
-    return this.httpClient.get<any>(url);
-  }
-
-  getFavourites(username: any): Observable<Array<Movie>> {
-    const url = `http://localhost:3000/${username}`;
-
-    return this.httpClient.get<Array<Movie>>(url);
-  }
-
-  addMovieToFavourites(username: any, movie: any): Observable<Movie> {
-    const url = `http://localhost:3000/${username}`;
-
-    return this.httpClient.post<Movie>(url, movie);
-  }
-
-  removeMovieFromFavourites(username: any, id: any): Observable<any> {
-    const url = `http://localhost:3000/${username}/${id}`;
-
-    return this.httpClient.delete(url);
-  }
-
-  getGenres(): Observable<any> {
-    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${environment.api_key}&language=en-US`;
-
-    return this.httpClient.get(url);
-  }
-*/
-
 
 
 

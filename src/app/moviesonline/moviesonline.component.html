@@ -1,19 +1,7 @@
 <h2>My Online Movies</h2>
 
 <div>
-  <label for="new-movie">Movie name Online: 12/13 11:48</label>
-  <input id="new-movie" #movieName />
 
-
-<!--  <button type="button" class="add-button" (click)="getGenres();movieName.value=''">-->
-<!--    get movie Genre ButtonOneOnline-->
-<!--  </button>-->
-<!--  <button type="button" class="add-button" (click)="getMovies();">-->
-<!--    get movie ButtonOneOnline-->
-<!--  </button>-->
-<!--  <button type="button" class="add-button" (click)="getGenres();movieName.value=''">-->
-<!--    search movie Value-->
-<!--  </button>-->
   <form>
     <label for="formName">
     Form Name
@@ -33,10 +21,7 @@
 <ul class="movies">
   <li *ngFor="let movieResultSingle of movieResults">
     {{movieResultSingle.title}}
-<!--    <a routerLink="/detail/{{movie.id}}">-->
-<!--      <span class="badge">{{movie.id}}</span> {{movie.title}}-->
-<!--    </a>-->
-
+    {{movieResultSingle.release_date}}
   </li>
 </ul>
 
