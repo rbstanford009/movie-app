@@ -11,6 +11,7 @@ import {catchError, map, tap} from "rxjs/operators";
 import { Router } from '@angular/router';
 //import { DataService } from '../services/data.service';
 import { HttpClient } from '@angular/common/http'
+import {IMovieResults} from "../model/movie-results";
 
 @Component({
   selector: 'app-movies',
@@ -20,8 +21,9 @@ import { HttpClient } from '@angular/common/http'
 export class MoviesonlineComponent implements OnInit {
 
     private moviesUrl = 'api/movies';  // URL to web api      // https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true
-
+    public movieResults: IMovieResults[] = [];
     public movies: Movie[] = [];
+    movies$= new Observable<Movie[]>;
 
     public movieName ='';
  //   private movieName: string;
@@ -40,14 +42,15 @@ export class MoviesonlineComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getMovies();
+    this.searchMovies('THE');
+ //   this.getMovies();
  //   this.getMoviesMany();
 /*
 
 */
   }
 
-    getMovies(): void {
+    getMovies():  Movie[] | null {
         console.log(this.movies);
 
         this.httpService.searchMovie("Beast")
@@ -62,7 +65,16 @@ export class MoviesonlineComponent implements OnInit {
         const url = 'https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true';
         this.httpClient.get(url).subscribe(console.log);
         let simpleTest = this.httpClient.get(url); //.subscribe(console.log);
+      console.log(this.movies);
 
+      console.log(this.movies.length);
+      if(this.movies.length > 0) {
+        console.log('----------Full-------------');
+        return this.movies;
+      }
+
+      console.log('----------POST-------------');
+      return null;
 
     }
 
@@ -72,12 +84,48 @@ export class MoviesonlineComponent implements OnInit {
     return this.httpService.getGenres();
   }
 
+  searchMoviesTwo(name: string) {
+    debugger;
+    this.httpService.searchMovieTwo(name)
+  .subscribe(data => {
+      this.movieResults = data.results;
+      console.log(this.movieResults);
+    } );
+  }
 
-  searchMovie(name: string): Observable<any> | null {
+  searchMovies(name: string): Movie[] | null {
 
-    let test = this.httpService.searchMovie(name);
- //   test.pipe().
-     return null;
+
+
+    //
+    console.log(this.movies);
+
+    this.httpService.searchMovie(name)
+      .pipe(
+        map(data => Object.keys(data).map(key => data[key]))
+      )
+      .subscribe((movies: Movie[]) => this.movies = movies);
+
+    console.log(this.movies);
+
+    console.log('----------PRE-------------');
+    const url = 'https://api.themoviedb.org/3/search/movie?api_key=083f0465f131ae121114d5e51a6d4ddf&language=en-US&query=the&page=1&include_adult=true';
+    this.httpClient.get(url).subscribe(console.log);
+    let simpleTest = this.httpClient.get(url); //.subscribe(console.log);
+    console.log(this.movies);
+
+    console.log(this.movies.length);
+    if(this.movies.length > 0) {
+      console.log('----------Full-------------');
+      return this.movies;
+    } else {
+      return null;
+    }
+
+    console.log('----------POST-------------');
+
+    //
+
   }
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
