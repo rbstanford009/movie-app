@@ -8,9 +8,8 @@ import { MoviesonlineComponent } from './moviesonline/moviesonline.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'login', component: DashboardComponent },
   { path: 'detail/:id', component: MovieDetailComponent },
-  { path: 'movies', component: MoviesComponent },
   { path: 'moviesonline', component: MoviesonlineComponent }
 ];
 
