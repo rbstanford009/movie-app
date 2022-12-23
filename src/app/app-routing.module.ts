@@ -5,9 +5,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { MoviesonlineComponent } from './moviesonline/moviesonline.component';
+import {AuthComponent} from "./auth/auth.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'auth', component: AuthComponent },
   { path: 'login', component: DashboardComponent },
   { path: 'detail/:id', component: MovieDetailComponent },
   { path: 'moviesonline', component: MoviesonlineComponent }

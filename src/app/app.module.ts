@@ -10,6 +10,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MoviesonlineComponent } from './moviesonline/moviesonline.component';
+import {AuthComponent} from "./auth/auth.component";
 
 
 
@@ -29,7 +30,8 @@ import { MoviesonlineComponent } from './moviesonline/moviesonline.component';
     MovieDetailComponent,
     MessagesComponent,
     MovieSearchComponent,
-    MoviesonlineComponent
+    MoviesonlineComponent,
+    AuthComponent
 
   ],
   bootstrap: [ AppComponent ]
